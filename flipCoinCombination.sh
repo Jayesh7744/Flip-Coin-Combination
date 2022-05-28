@@ -75,3 +75,43 @@ TH=`awk "BEGIN {print (${Doublet[TH]}/10)*100}"`
 echo "TH = $TH%"
 TT=`awk "BEGIN {print (${Doublet[TT]}/10)*100}"`
 echo "TT = $TT%"
+
+
+head=0
+declare -A Triplet
+
+for ((i=1; i<=10; i++))
+do
+        randomCheck1=$((RANDOM % 2))
+        randomCheck2=$((RANDOM % 2))
+        randomCheck3=$((RANDOM % 2))
+        if (( $randomCheck1 == 0 && $randomCheck2 == 0 && $randomCheck3 == 0))
+        then
+                echo "H H H"
+                ((Triplet[HHH]++))
+        elif (( $randomCheck1 == 0 && $randomCheck2 == 0 && $randomCheck3 == 1))
+        then
+                echo "H H T"
+                ((Triplet[HHT]++))
+        elif (( $randomCheck1 == 1 && $randomCheck2 == 1 && $randomCheck3 == 0))
+        then
+                echo "T T H"
+                ((Triplet[TTH]++))
+
+        else
+                echo "T T T"
+                ((Triplet[TTT]++))
+        fi
+done
+
+echo ${!Triplet[@]}
+echo ${Triplet[@]}
+
+HHH=`awk "BEGIN {print (${Triplet[HHH]}/10)*100}"`
+echo "HHH = $HHH%"
+HHT=`awk "BEGIN {print (${Triplet[HHT]}/10)*100}"`
+echo "HHT = $HHT%"
+TTH=`awk "BEGIN {print (${Triplet[TTH]}/10)*100}"`
+echo "TTH = $TTH%"
+TTT=`awk "BEGIN {print (${Triplet[TTT]}/10)*100}"`
+echo "TTT = $TTT%"
