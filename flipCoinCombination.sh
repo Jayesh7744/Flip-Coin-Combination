@@ -35,3 +35,43 @@ HeadPercentage=`awk "BEGIN {print (${Singlet[H]}/50)*100}"`
 echo "HEAD = $HeadPercentage%"
 TailPercentage=`awk "BEGIN {print (${Singlet[T]}/50)*100}"`
 echo "TAIL = $TailPercentage%"
+
+
+head=0
+declare -A Doublet
+
+for ((i=1; i<=10; i++))
+do
+        randomCheck1=$((RANDOM % 2))
+        randomCheck2=$((RANDOM % 2))
+
+        if (( $randomCheck1 == 0 && $randomCheck2 == 0 ))
+        then
+                echo "H H"
+                ((Doublet[HH]++))
+        elif (( $randomCheck1 == 0 && $randomCheck2 == 1 ))
+        then
+                echo "H T"
+                ((Doublet[HT]++))
+        elif (( $randomCheck1 == 1 && $randomCheck2 == 0 ))
+        then
+                echo "T H"
+                ((Doublet[TH]++))
+
+        else
+                echo "T T"
+                ((Doublet[TT]++))
+        fi
+done
+
+echo ${!Doublet[@]}
+echo ${Doublet[@]}
+
+HH=`awk "BEGIN {print (${Doublet[HH]}/10)*100}"`
+echo "HH = $HH%"
+HT=`awk "BEGIN {print (${Doublet[HT]}/10)*100}"`
+echo "HT = $HT%"
+TH=`awk "BEGIN {print (${Doublet[TH]}/10)*100}"`
+echo "TH = $TH%"
+TT=`awk "BEGIN {print (${Doublet[TT]}/10)*100}"`
+echo "TT = $TT%"
